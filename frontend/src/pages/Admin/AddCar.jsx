@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Anav from './Anav';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../../constants';
 
 
 function Addcar() {
@@ -43,7 +44,7 @@ function Addcar() {
       formDataToSend.append('price', formData.price);
       formDataToSend.append('carImage', formData.carImage);
 
-      await axios.post('http://localhost:8000/cars', formDataToSend, {
+      await axios.post(`${API_BASE_URL}/cars`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

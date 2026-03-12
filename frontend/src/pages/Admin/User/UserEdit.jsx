@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import Anav from '../Anav'
+import API_BASE_URL from '../../../constants';
 
 const UserEdit = () => {
   const [name, setName] = useState()
@@ -14,7 +15,7 @@ const UserEdit = () => {
   
   useEffect(() => {
    
-    axios.get(`http://localhost:8000/getuser/${id}`, {
+    axios.get(`${API_BASE_URL}/getuser/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -32,7 +33,7 @@ const UserEdit = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     let payload = { name, email }
-    axios.put(`http://localhost:8000/useredit/${id}`, payload, {
+    axios.put(`${API_BASE_URL}/useredit/${id}`, payload, {
       headers: {
         Authorization: `Bearer ${token}`
       }

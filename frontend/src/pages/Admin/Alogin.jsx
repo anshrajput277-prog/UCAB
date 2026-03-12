@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../../components/Navbar';
+import API_BASE_URL from '../../constants';
 
 const Alogin = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const Alogin = () => {
     setErrorMsg('');
     
     const payload = { email, password };
-    axios.post("http://localhost:8000/alogin", payload)
+    axios.post(`${API_BASE_URL}/alogin`, payload)
       .then(result => {
         setIsLoading(false);
         if (result.data.Status === "Success") {

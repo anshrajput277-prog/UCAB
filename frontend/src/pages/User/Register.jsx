@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../../components/Navbar';
+import API_BASE_URL from '../../constants';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -20,7 +21,7 @@ const Register = () => {
         const payload = { name, email, password };
         
         try {
-            const response = await axios.post("http://localhost:8000/register", payload);
+            const response = await axios.post(`${API_BASE_URL}/register`, payload);
             setIsLoading(false);
             if(response.data === "Already have an account") {
                 setErrorMsg("An account with this email already exists.");

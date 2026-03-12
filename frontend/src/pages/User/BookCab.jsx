@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from './Unav';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import API_BASE_URL from '../../constants';
 
 const BookCab = () => {
   const [selectedPickupState, setSelectedPickupState] = useState('');
@@ -73,7 +74,7 @@ const BookCab = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:8000/car/${id}`)
+    axios.get(`${API_BASE_URL}/car/${id}`)
       .then((resp) => {
         setCars(resp.data);
         setLoading(false);
@@ -137,7 +138,7 @@ const BookCab = () => {
     };
 
     axios.post(
-      'http://localhost:8000/rides',
+      `${API_BASE_URL}/rides`,
       data,
       {
         headers: {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Unav';
+import API_BASE_URL from '../../constants';
 
 function Mybookings() {
   const [cars, setCars] = useState([]);
@@ -11,7 +12,7 @@ function Mybookings() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       axios
-        .get(`http://localhost:8000/getrides/${user.id}`, {
+        .get(`${API_BASE_URL}/getrides/${user.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

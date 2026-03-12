@@ -13,7 +13,7 @@ function Cabs() {
   useEffect(() => {
     async function fetchCars() {
       try {
-        const response = await axios.get('http://localhost:8000/cars');
+        const response = await axios.get(`${API_BASE_URL}/cars`);
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching cars: ', error);
@@ -72,7 +72,7 @@ function Cabs() {
               className="bg-amber-200 rounded-xl shadow-lg p-5 transform hover:scale-105 transition-transform duration-300 animate-fade-in"
             >
               <img
-                src={`http://localhost:8000/uploads/${car?.carImage}`}
+                src={`${API_BASE_URL}/uploads/${car?.carImage}`}
                 alt={`${car.carname} Image`}
                 className="h-48 w-full object-cover rounded-md mb-4"
               />

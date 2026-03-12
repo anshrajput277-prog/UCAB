@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import Anav from './Anav';
+import API_BASE_URL from '../../constants';
 
 function Acabs() {
   const [cars, setCars] = useState([]);
@@ -14,7 +15,7 @@ function Acabs() {
   useEffect(() => {
     async function fetchCars() {
       try {
-        const response = await axios.get('http://localhost:8000/cars');
+        const response = await axios.get(`${API_BASE_URL}/cars`);
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching cars: ', error);
@@ -24,7 +25,7 @@ function Acabs() {
   }, []);
 
   const deletecar = (id) => {
-    axios.delete(`http://localhost:8000/cardelete/${id}`,{
+    axios.delete(`${API_BASE_URL}/cardelete/${id}`,{
       headers: {
         Authorization: `Bearer ${token}`, 
       },
@@ -84,7 +85,7 @@ function Acabs() {
               className="bg-amber-200 rounded-xl shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 w-72 p-4"
             >
               <img
-                src={`http://localhost:8000/uploads/${car.carImage}`}
+                src={`${API_BASE_URL}/uploads/${car.carImage}`}
                 alt={`${car.carname}`}
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />

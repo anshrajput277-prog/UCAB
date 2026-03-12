@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Anav from './Anav';
 import {FaTrash} from "react-icons/fa"
+import API_BASE_URL from '../../constants';
 
 function Bookings() {
   const [cars, setCars] = useState([]);
@@ -12,7 +13,7 @@ function Bookings() {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/getrides`,{
+        const response = await axios.get(`${API_BASE_URL}/getrides`,{
           headers: {
              Authorization: `Bearer ${token}`, 
       },
@@ -41,7 +42,7 @@ function Bookings() {
 
   const deletecar = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:8000/usercardelete/${taskId}`,{
+      await axios.delete(`${API_BASE_URL}/usercardelete/${taskId}`,{
          headers: {
         Authorization: `Bearer ${token}`, 
       },

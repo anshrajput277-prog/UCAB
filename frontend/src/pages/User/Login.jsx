@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../../components/Navbar';
+import API_BASE_URL from '../../constants';
 
 axios.defaults.withCredentials = true;
 
@@ -19,7 +20,7 @@ const Login = () => {
     const payload = { email, password };
 
     try {
-      const res = await axios.post("http://localhost:8000/login", payload);
+      const res = await axios.post(`${API_BASE_URL}/login`, payload);
       setIsLoading(false);
 
       if (res.data.status === "success") {

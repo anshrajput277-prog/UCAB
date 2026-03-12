@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import NavBar from '../../components/Navbar';
+import API_BASE_URL from '../../constants';
 
 const Dregister = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const Dregister = () => {
     setErrorMsg('');
     
     try {
-      const response = await axios.post("http://localhost:8000/driver/register", formData);
+      const response = await axios.post(`${API_BASE_URL}/driver/register`, formData);
       setIsLoading(false);
       
       if (response.data.message === "Driver already exists.") {

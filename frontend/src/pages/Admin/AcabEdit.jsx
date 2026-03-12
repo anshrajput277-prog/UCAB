@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import Anav from './Anav';
+import API_BASE_URL from '../../constants';
 
 const Acabedit = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const Acabedit = () => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/acar/${id}`, {
+    axios.get(`${API_BASE_URL}/acar/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -55,7 +56,7 @@ const Acabedit = () => {
     }
 
     try {
-      const res = await axios.put(`http://localhost:8000/acaredit/${id}`, dataToSend, {
+      const res = await axios.put(`${API_BASE_URL}/acaredit/${id}`, dataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

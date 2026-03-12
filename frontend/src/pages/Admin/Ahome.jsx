@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Anav from './Anav';
+import API_BASE_URL from '../../constants';
 
 function Ahome() {
   const [users, setUsers] = useState([]);
@@ -11,7 +12,7 @@ function Ahome() {
   const [cars, setCars] = useState([]);
   const token = localStorage.getItem('token');
   useEffect(() => {
-    axios.get(`http://localhost:8000/getusers`,{
+    axios.get(`${API_BASE_URL}/getusers`,{
       headers: {
         Authorization: `Bearer ${token}`, 
       },
@@ -19,7 +20,7 @@ function Ahome() {
       .then((response) => setUsers(response.data))
       .catch((error) => console.error('Error fetching users: ', error));
 
-    axios.get(`http://localhost:8000/getrides`,{
+    axios.get(`${API_BASE_URL}/getrides`,{
       headers: {
         Authorization: `Bearer ${token}`, 
       },
@@ -27,7 +28,7 @@ function Ahome() {
       .then((response) => setBookings(response.data))
       .catch((error) => console.error('Error fetching bookings: ', error));
 
-    axios.get(`http://localhost:8000/cars`,{
+    axios.get(`${API_BASE_URL}/cars`,{
        headers: {
         Authorization: `Bearer ${token}`, 
       },

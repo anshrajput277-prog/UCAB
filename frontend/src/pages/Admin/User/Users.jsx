@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Anav from '../Anav';
+import API_BASE_URL from '../../../constants';
 
 const Users = () => {
   const [userbookings, setUserbookings] = useState([]);
@@ -15,7 +16,7 @@ const Users = () => {
   // Fetch all users
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/getusers`, {
+      .get(`${API_BASE_URL}/getusers`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -30,7 +31,7 @@ const Users = () => {
   // Delete user
   const deleteData = async (userId) => {
     try {
-      await axios.delete(`http://localhost:8000/userdelete/${userId}`, {
+      await axios.delete(`${API_BASE_URL}/userdelete/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('User deleted');
@@ -44,7 +45,7 @@ const Users = () => {
   // Delete car booking
   const deleteCar = async (bookingId) => {
     try {
-      await axios.delete(`http://localhost:8000/usercardelete/${bookingId}`, {
+      await axios.delete(`${API_BASE_URL}/usercardelete/${bookingId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('Car booking deleted');
@@ -58,7 +59,7 @@ const Users = () => {
   // Fetch user bookings
   const fetchUserBikeData = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:8000/getrides/${userId}`, {
+      const response = await axios.get(`${API_BASE_URL}/getrides/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUserbookings(response.data);
