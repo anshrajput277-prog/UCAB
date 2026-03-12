@@ -13,13 +13,21 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = process.env.FRONTEND_URL
-  ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://localhost:5174']
-  : ['http://localhost:5173', 'http://localhost:5174'];
-
 app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    // Allow localhost (development)
+    if (origin.startsWith('http://localhost')) return callback(null, true);
+    // Allow any Vercel deployment (including preview URLs)
+    if (origin.endsWith('.vercel.app')) return callback(null, true);
+    // Allow the specific production frontend URL if set
+    if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) return callback(null, true);
+    // Block everything else
+    callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
