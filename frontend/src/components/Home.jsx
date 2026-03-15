@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NavBar from "./Navbar";
 import cabIllustration from "../assets/cab-illustration.png";
+import premiumAppImg from "../assets/EnjoyYourRide.png";
 import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -185,6 +186,116 @@ const Home = () => {
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-accent flex items-center justify-center font-bold text-xl text-brand-900 border-4 border-white rounded-full shadow-md">3</div>
               <h4 className="text-2xl font-bold text-gray-900 mb-4 font-display">Enjoy the Journey</h4>
               <p className="text-gray-500 leading-relaxed font-medium">Sit back and relax while our verified professional drivers take you safely to your destination.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Features Section */}
+      <section id="features" className="py-24 bg-gray-50 relative z-10">
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-brand-200/40 rounded-full blur-[100px] -translate-x-1/2 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-20 animate-slide-up">
+            <span className="inline-block py-1 px-4 rounded-full bg-brand-100 text-brand-800 text-sm font-bold tracking-widest uppercase mb-4 shadow-sm">Why Choose Us</span>
+            <h2 className="text-4xl lg:text-6xl font-extrabold text-gray-900 font-display tracking-tight mb-6">Experience the Difference</h2>
+            <p className="max-w-2xl mx-auto text-xl text-gray-500 font-medium">We've thought of everything to make your journey perfect. Discover the features that make Ucab the top choice for millions.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                title: "Safety First",
+                desc: "Every ride is tracked in real-time. Share your trip status and ride securely with verified pros.",
+                icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              },
+              {
+                title: "Premium Fleet",
+                desc: "From sleek sedans to spacious SUVs, choose a premium, meticulously maintained vehicle.",
+                icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 17l.867 12.142A2 2 0 0117.83 31H6.17a2 2 0 01-1.993-2.142L5 17m5 4v-4m4 4v-4m-9 0a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z" transform="translate(0, -10)"/></svg>
+              },
+              {
+                title: "Fair Pricing",
+                desc: "No hidden fees. What you see is exactly what you pay. Transparent pricing, always.",
+                icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              },
+              {
+                title: "24/7 Support",
+                desc: "Our dedicated support team is available around the clock to assist you with anything.",
+                icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              }
+            ].map((feature, idx) => (
+              <div key={idx} className="glass-card bg-white/70 p-8 rounded-3xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-white group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="w-16 h-16 bg-gradient-to-br from-white to-brand-50 rounded-2xl shadow-sm border border-brand-100 flex items-center justify-center text-accent-dark mb-6 group-hover:scale-110 transition-transform">
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 font-display">{feature.title}</h3>
+                <p className="text-gray-500 font-medium leading-relaxed">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Premium About Section */}
+      <section id="about" className="py-24 bg-white relative overflow-hidden border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+            {/* Visual Side */}
+            <div className="mb-16 lg:mb-0 relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-brand-200 to-accent rounded-[3rem] blur-2xl opacity-30 group-hover:opacity-50 transition duration-700"></div>
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-white p-2">
+                <img
+                  src={premiumAppImg}
+                  alt="Ucab Premium Experience"
+                  className="w-full h-[500px] object-cover rounded-[2rem] transform group-hover:scale-105 transition-transform duration-700 filter brightness-105"
+                  onError={(e) => {
+                    // Fallback to illustration if image doesn't exist
+                    e.target.src = cabIllustration;
+                  }}
+                />
+                <div className="absolute bottom-10 left-10 right-10 glass-card bg-white/80 p-6 rounded-2xl transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 border border-white/50">
+                  <p className="text-gray-900 font-bold text-lg">"The best cab service I've ever experienced. Clean, fast, and incredibly reliable."</p>
+                  <p className="text-brand-600 font-semibold mt-2 text-sm uppercase tracking-wider">— Verified Passenger</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Text Side */}
+            <div className="lg:pl-8">
+              <span className="inline-block py-1 px-4 rounded-full bg-brand-100 text-brand-800 text-sm font-bold tracking-widest uppercase mb-6 shadow-sm">Our Mission</span>
+              <h2 className="text-4xl lg:text-6xl text-gray-900 font-extrabold font-display leading-[1.15] mb-8 tracking-tight">
+                Redefining modern transportation, <span className="text-brand-600">one ride at a time.</span>
+              </h2>
+              <div className="space-y-6 text-xl text-gray-500 font-medium leading-relaxed">
+                <p>
+                  Ucab was founded on a simple premise: transportation should be seamless, safe, and sophisticated. We aren't just getting you from point A to point B; we're transforming how you experience the journey.
+                </p>
+                <p>
+                  By partnering only with top-tier professional drivers and maintaining the highest standards for our vehicle network, we ensure that every time you open our app, you're guaranteed a premium experience.
+                </p>
+              </div>
+              
+              <div className="mt-12 grid grid-cols-2 gap-8 border-t border-gray-100 pt-10 mt-10">
+                <div>
+                  <div className="text-4xl font-extrabold text-gray-900 mb-2 font-display">2M+</div>
+                  <div className="text-sm font-bold text-brand-600 uppercase tracking-wider">Completed Rides</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-extrabold text-gray-900 mb-2 font-display">99.8%</div>
+                  <div className="text-sm font-bold text-brand-600 uppercase tracking-wider">Happy Customers</div>
+                </div>
+              </div>
+              
+              <div className="mt-12">
+                <button 
+                  onClick={handleBookNow}
+                  className="btn-primary"
+                >
+                  Join Ucab Today
+                  <svg className="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
