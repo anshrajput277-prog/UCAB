@@ -27,102 +27,10 @@ const NavBar = () => {
             </Link>
           </div>
           
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-2 relative">
-            <Link to="/" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-xl hover:bg-black/5 transition-all duration-300">Home</Link>
-            <Link to="#features" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-xl hover:bg-black/5 transition-all duration-300">Features</Link>
-            <Link to="#about" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-xl hover:bg-black/5 transition-all duration-300">About</Link>
-            
-            <div className="relative">
-              <button 
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="btn-primary ml-4"
-              >
-                Sign In
-                <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-3 w-56 rounded-2xl shadow-xl glass-card ring-1 ring-black/5 animate-fade-in origin-top-right overflow-hidden p-2">
-                  <div className="py-1" role="menu" aria-orientation="vertical">
-                    <Link 
-                      to="/login" 
-                      className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-accent-dark rounded-xl transition-colors"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Passenger Login
-                    </Link>
-                    <Link 
-                      to="/dlogin" 
-                      className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-emerald-600 rounded-xl transition-colors"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Drive with Ucab
-                    </Link>
-                    <Link 
-                      to="/alogin" 
-                      className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-accent-dark rounded-xl transition-colors"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      Admin Portal
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-900 hover:text-accent focus:outline-none p-2 rounded-lg bg-gray-50/50"
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
+          {/* Navigation Links Removed per User Request */}
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 glass-card mx-4 mt-2 animate-slide-up border border-gray-200">
-          <div className="flex flex-col space-y-1 p-2">
-            <Link to="/" className="block px-4 py-3 text-gray-800 font-medium hover:bg-gray-50 rounded-xl" onClick={() => setIsMenuOpen(false)}>Home</Link>
-            <div className="h-px bg-gray-100 my-2"></div>
-            <div className="text-xs font-bold text-gray-400 uppercase tracking-wider px-4 py-2">Portals</div>
-            <Link 
-              to="/login" 
-              className="block px-4 py-3 text-gray-800 font-medium hover:bg-accent hover:text-gray-900 rounded-xl transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Passenger Login
-            </Link>
-            <Link 
-              to="/dlogin" 
-              className="block px-4 py-3 text-gray-800 font-medium hover:bg-emerald-400 hover:text-gray-900 rounded-xl transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Drive with Ucab
-            </Link>
-            <Link 
-              to="/alogin" 
-              className="block px-4 py-3 text-gray-800 font-medium hover:bg-accent hover:text-gray-900 rounded-xl transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Admin Login
-            </Link>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };
