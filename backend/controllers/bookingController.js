@@ -155,6 +155,37 @@ const getUserBookings = async (req, res) => {
     }
 };
 
+// User cancels a booking (only if not started yet)
+const cancelRide = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userId = req.user.id;
+
+        const booking = await Mybookings.findById(id);
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        // Ensure the booking belongs to the requesting user
+        if (booking.userId.toString() !== userId) {
+            return res.status(403).json({ message: 'Not authorized to cancel this booking' });
+        }
+
+        // Only allow cancellation if trip hasn't started
+        const currentDate = new Date();
+        const pickupDate = new Date(booking.pickupdate);
+        if (currentDate >= pickupDate) {
+            return res.status(400).json({ message: 'Cannot cancel a ride that has already started' });
+        }
+
+        await Mybookings.findByIdAndDelete(id);
+        res.json({ message: 'Booking cancelled successfully' });
+    } catch (err) {
+        console.error('Cancel Ride Error:', err);
+        res.status(500).json({ error: 'Failed to cancel booking', details: err.message });
+    }
+};
+
 module.exports = {
     requestRide,
     acceptRide,
@@ -162,5 +193,6 @@ module.exports = {
     completeRide,
     getPendingRides,
     getUserRides,
-    getUserBookings
+    getUserBookings,
+    cancelRide
 };
