@@ -28,10 +28,10 @@ const NavBar = () => {
           </div>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6 relative">
-            <Link to="/" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Home</Link>
-            <Link to="#features" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Features</Link>
-            <Link to="#about" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">About</Link>
+          <div className="hidden md:flex items-center space-x-2 relative">
+            <Link to="/" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-xl hover:bg-black/5 transition-all duration-300">Home</Link>
+            <Link to="#features" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-xl hover:bg-black/5 transition-all duration-300">Features</Link>
+            <Link to="#about" className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium rounded-xl hover:bg-black/5 transition-all duration-300">About</Link>
             
             <div className="relative">
               <button 
