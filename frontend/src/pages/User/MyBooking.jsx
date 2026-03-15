@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Unav';
 import API_BASE_URL from '../../constants';
 import Modal from '../../components/Modal';
+import { MoreVertical, Trash2 } from 'lucide-react';
 
 function Mybookings() {
   const [cars, setCars] = useState([]);
@@ -12,9 +13,24 @@ function Mybookings() {
 
   // Modal state
   const [modal, setModal] = useState({ isOpen: false, type: 'info', title: '', message: '', onConfirm: null, onCancel: null, confirmText: 'OK', cancelText: 'Cancel' });
+  
+  // Dropdown state
+  const [activeMenu, setActiveMenu] = useState(null);
+  const menuRef = useRef(null);
 
   const showModal = (config) => setModal({ isOpen: true, confirmText: 'OK', cancelText: 'Cancel', ...config });
   const closeModal = () => setModal((m) => ({ ...m, isOpen: false }));
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setActiveMenu(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -62,6 +78,35 @@ function Mybookings() {
     });
   };
 
+  const handleRemoveHistory = (bookingId) => {
+    setActiveMenu(null);
+    showModal({
+      type: 'confirm',
+      title: 'Remove from History',
+      message: 'Are you sure you want to permanently delete this booking from your history? This action cannot be undone.',
+      confirmText: 'Yes, Remove',
+      cancelText: 'Cancel',
+      onCancel: closeModal,
+      onConfirm: async () => {
+        closeModal();
+        try {
+          await axios.delete(`${API_BASE_URL}/removehistory/${bookingId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setCars((prev) => prev.filter((c) => c._id !== bookingId));
+        } catch (error) {
+          console.error('Error removing from history:', error);
+          showModal({
+            type: 'error',
+            title: 'Action Failed',
+            message: 'Failed to remove booking. Please try again.',
+            onConfirm: closeModal,
+          });
+        }
+      },
+    });
+  };
+
   const getStatusAndColor = (car) => {
     const currentDate = new Date();
     const pickupDate = new Date(car.pickupdate);
@@ -97,7 +142,31 @@ function Mybookings() {
                 key={car._id}
                 className={`w-full mx-auto bg-white border-l-8 ${color} rounded-xl shadow-md p-6 relative`}
               >
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm text-gray-700">
+                {/* 3-Dots Menu */}
+                <div className="absolute top-4 right-4">
+                  <button
+                    onClick={() => setActiveMenu(activeMenu === car._id ? null : car._id)}
+                    className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <MoreVertical size={20} className="text-gray-500" />
+                  </button>
+                  {activeMenu === car._id && (
+                    <div 
+                      ref={menuRef}
+                      className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 z-10 animate-fade-in"
+                    >
+                      <button
+                        onClick={() => handleRemoveHistory(car._id)}
+                        className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 font-medium flex items-center transition-colors rounded-lg"
+                      >
+                        <Trash2 size={16} className="mr-2" />
+                        Remove from History
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm text-gray-700 pr-8">
                   <div>
                     <p className="font-semibold">Cab Booked Date</p>
                     <p>{car.bookeddate}</p>

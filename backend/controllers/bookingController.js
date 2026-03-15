@@ -186,6 +186,30 @@ const cancelRide = async (req, res) => {
     }
 };
 
+// User removes a booking from history entirely
+const removeHistory = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userId = req.user.id;
+
+        const booking = await Mybookings.findById(id);
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        // Ensure the booking belongs to the requesting user
+        if (booking.userId.toString() !== userId) {
+            return res.status(403).json({ message: 'Not authorized to remove this booking' });
+        }
+
+        await Mybookings.findByIdAndDelete(id);
+        res.json({ message: 'Booking removed from history' });
+    } catch (err) {
+        console.error('Remove History Error:', err);
+        res.status(500).json({ error: 'Failed to remove booking', details: err.message });
+    }
+};
+
 module.exports = {
     requestRide,
     acceptRide,
@@ -194,5 +218,6 @@ module.exports = {
     getPendingRides,
     getUserRides,
     getUserBookings,
-    cancelRide
+    cancelRide,
+    removeHistory
 };
