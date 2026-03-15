@@ -3,39 +3,63 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Unav';
 import API_BASE_URL from '../../constants';
+import Modal from '../../components/Modal';
 
 function Mybookings() {
   const [cars, setCars] = useState([]);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
+  // Modal state
+  const [modal, setModal] = useState({ isOpen: false, type: 'info', title: '', message: '', onConfirm: null, onCancel: null, confirmText: 'OK', cancelText: 'Cancel' });
+
+  const showModal = (config) => setModal({ isOpen: true, confirmText: 'OK', cancelText: 'Cancel', ...config });
+  const closeModal = () => setModal((m) => ({ ...m, isOpen: false }));
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       axios
         .get(`${API_BASE_URL}/getrides/${user.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => setCars(response.data))
         .catch((error) => console.error('Error fetching tasks: ', error));
-    } else {
-      console.log('ERROR');
     }
   }, []);
 
-  const handleCancel = async (bookingId) => {
-    if (!window.confirm('Are you sure you want to cancel this booking?')) return;
-    try {
-      await axios.delete(`${API_BASE_URL}/cancelride/${bookingId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setCars((prev) => prev.filter((c) => c._id !== bookingId));
-    } catch (error) {
-      console.error('Error cancelling booking:', error);
-      alert('Failed to cancel booking. Please try again.');
-    }
+  const handleCancel = (bookingId) => {
+    showModal({
+      type: 'confirm',
+      title: 'Cancel Booking',
+      message: 'Are you sure you want to cancel this booking? This action cannot be undone.',
+      confirmText: 'Yes, Cancel',
+      cancelText: 'Keep Booking',
+      onCancel: closeModal,
+      onConfirm: async () => {
+        closeModal();
+        try {
+          await axios.delete(`${API_BASE_URL}/cancelride/${bookingId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setCars((prev) => prev.filter((c) => c._id !== bookingId));
+          showModal({
+            type: 'success',
+            title: 'Booking Cancelled',
+            message: 'Your booking has been successfully cancelled.',
+            onConfirm: closeModal,
+          });
+        } catch (error) {
+          console.error('Error cancelling booking:', error);
+          showModal({
+            type: 'error',
+            title: 'Cancellation Failed',
+            message: 'Failed to cancel your booking. Please try again.',
+            onConfirm: closeModal,
+          });
+        }
+      },
+    });
   };
 
   const getStatusAndColor = (car) => {
@@ -51,6 +75,18 @@ function Mybookings() {
   return (
     <div className="min-h-screen bg-amber-100">
       <Navbar />
+
+      <Modal
+        isOpen={modal.isOpen}
+        type={modal.type}
+        title={modal.title}
+        message={modal.message}
+        onConfirm={modal.onConfirm}
+        onCancel={modal.onCancel}
+        confirmText={modal.confirmText}
+        cancelText={modal.cancelText}
+      />
+
       <div className="px-6 py-8">
         <h1 className="text-3xl font-semibold text-center mb-6 text-gray-800">My Bookings</h1>
         <div className="space-y-6">

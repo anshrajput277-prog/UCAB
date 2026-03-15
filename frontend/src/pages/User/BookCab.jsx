@@ -4,6 +4,7 @@ import Navbar from './Unav';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import API_BASE_URL from '../../constants';
+import Modal from '../../components/Modal';
 
 const BookCab = () => {
   const [selectedPickupState, setSelectedPickupState] = useState('');
@@ -22,6 +23,11 @@ const BookCab = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [progress, setProgress] = useState(0);
+
+  // Modal state
+  const [modal, setModal] = useState({ isOpen: false, type: 'info', title: '', message: '', onConfirm: null });
+  const showModal = (config) => setModal({ isOpen: true, confirmText: 'OK', ...config });
+  const closeModal = () => setModal((m) => ({ ...m, isOpen: false }));
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -119,7 +125,12 @@ const BookCab = () => {
       setFare(cost);
       setProgress(66);
     } else {
-      alert('Pricing info not available.');
+      showModal({
+        type: 'error',
+        title: 'Route Unavailable',
+        message: 'Pricing information is not available for the selected route. Please choose a different pickup or drop city.',
+        onConfirm: closeModal,
+      });
       setFare(null);
     }
   };
@@ -147,17 +158,36 @@ const BookCab = () => {
       }
     )
       .then(() => {
-        alert('Cab booked successfully');
-        navigate('/mybookings');
+        showModal({
+          type: 'success',
+          title: '🎉 Cab Booked!',
+          message: 'Your cab has been booked successfully. You can track it in My Bookings.',
+          confirmText: 'View Bookings',
+          onConfirm: () => { closeModal(); navigate('/mybookings'); },
+        });
       })
       .catch(() => {
-        setError('Failed to book ride.');
+        showModal({
+          type: 'error',
+          title: 'Booking Failed',
+          message: 'We could not complete your booking. Please try again.',
+          onConfirm: closeModal,
+        });
       });
   };
 
   return (
     <div className="bg-amber-100 min-h-screen font-sans">
       <Navbar />
+
+      <Modal
+        isOpen={modal.isOpen}
+        type={modal.type}
+        title={modal.title}
+        message={modal.message}
+        onConfirm={modal.onConfirm}
+        confirmText={modal.confirmText}
+      />
       <div className="max-w-2xl mx-auto mt-12 p-6 bg-amber-50 rounded-2xl shadow-lg animate-fade-in">
         <div className="relative w-full bg-black h-2 rounded-full mb-6">
           <div
