@@ -143,12 +143,12 @@ function Mybookings() {
                 className={`w-full mx-auto bg-white border-l-8 ${color} rounded-xl shadow-md p-6 relative`}
               >
                 {/* 3-Dots Menu */}
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-4 right-4 z-50">
                   <button
                     onClick={() => setActiveMenu(activeMenu === car._id ? null : car._id)}
-                    className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                    className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors shadow-sm border border-gray-200"
                   >
-                    <FiMoreVertical size={20} className="text-gray-500" />
+                    <FiMoreVertical size={20} className="text-gray-800" />
                   </button>
                   {activeMenu === car._id && (
                     <div 
