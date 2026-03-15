@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import API_BASE_URL from '../../constants';
 import Modal from '../../components/Modal';
+import { FiMapPin, FiCalendar, FiClock, FiCheckCircle, FiChevronRight, FiNavigation, FiTag } from 'react-icons/fi';
 
 const BookCab = () => {
   const [selectedPickupState, setSelectedPickupState] = useState('');
@@ -188,132 +189,175 @@ const BookCab = () => {
         onConfirm={modal.onConfirm}
         confirmText={modal.confirmText}
       />
-      <div className="max-w-2xl mx-auto mt-12 p-6 bg-amber-50 rounded-2xl shadow-lg animate-fade-in">
-        <div className="relative w-full bg-black h-2 rounded-full mb-6">
-          <div
-            className="bg-amber-500 h-2 rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
+      <div className="max-w-4xl mx-auto mt-12 mb-20 p-8 md:p-12 bg-white/70 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] border border-white relative z-10 overflow-hidden">
+        {/* Decorative Top Glow */}
+        <div className="absolute -top-32 -left-32 w-64 h-64 bg-amber-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-pulse"></div>
+        <div className="absolute top-1/2 -right-32 w-80 h-80 bg-orange-400 rounded-full mix-blend-multiply filter blur-[120px] opacity-30"></div>
 
-        <h2 className="text-4xl font-bold text-amber-700 text-center mb-8">Book a Ride</h2>
-        {error && <p className="text-red-600 text-center mb-4">{error}</p>}
-
-        <form className="space-y-8" onSubmit={handleSubmit}>
-          {/* Location Details Route Grid */}
-          <div className="bg-white/60 p-6 rounded-xl border border-amber-100 shadow-sm space-y-6">
-            <h3 className="text-xl font-semibold text-amber-800 border-b border-amber-200 pb-2">Trip Route</h3>
-            
-            {[
-              {
-                title: 'Pickup Location',
-                state: selectedPickupState,
-                setState: (val) => handleStateChange(val, 'Pickup'),
-                city: selectedPickupCity,
-                setCity: (val) => handleCityChange(val, 'Pickup'),
-                pincode: selectedPickupPincode
-              },
-              {
-                title: 'Drop Location',
-                state: selectedDropState,
-                setState: (val) => handleStateChange(val, 'Drop'),
-                city: selectedDropCity,
-                setCity: (val) => handleCityChange(val, 'Drop'),
-                pincode: selectedDropPincode
-              }
-            ].map((loc, i) => (
-              <div key={i} className="flex flex-col md:flex-row md:items-center gap-4">
-                <div className="md:w-1/4">
-                  <span className="text-sm font-medium text-amber-900 uppercase tracking-wide">{loc.title}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:w-3/4">
-                  <select
-                    className="p-3 border border-gray-300 rounded-lg w-full bg-white text-gray-700 shadow-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all"
-                    value={loc.state}
-                    onChange={(e) => loc.setState(e.target.value)}
-                  >
-                    <option value="">Select State</option>
-                    {states.map((s) => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
-                  <select
-                    className="p-3 border border-gray-300 rounded-lg w-full bg-white text-gray-700 shadow-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all"
-                    value={loc.city}
-                    onChange={(e) => loc.setCity(e.target.value)}
-                  >
-                    <option value="">Select City</option>
-                    {cities[loc.state]?.map((city) => (
-                      <option
-                        key={city.name}
-                        value={city.name}
-                        disabled={excludedCities.includes(city.name)}
-                      >
-                        {city.name}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    type="text"
-                    className="p-3 border border-gray-200 rounded-lg w-full bg-gray-50 text-gray-500 shadow-inner"
-                    readOnly
-                    placeholder="Pincode"
-                    value={loc.pincode}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Date & Time Grid */}
-          <div className="bg-white/60 p-6 rounded-xl border border-amber-100 shadow-sm">
-            <h3 className="text-xl font-semibold text-amber-800 border-b border-amber-200 pb-2 mb-6">Schedule</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
-              {[
-                { label: 'Pickup Date', type: 'date', value: pickupdate, setter: setPickupDate },
-                { label: 'Pickup Time', type: 'time', value: pickuptime, setter: setPickupTime },
-                { label: 'Drop Date', type: 'date', value: dropdate, setter: setDropDate },
-                { label: 'Drop Time', type: 'time', value: droptime, setter: setDropTime }
-              ].map((input, i) => (
-                <div key={i}>
-                  <label className="block text-sm font-semibold text-amber-900 mb-2 uppercase tracking-wide">{input.label}</label>
-                  <input
-                    type={input.type}
-                    value={input.value}
-                    onChange={(e) => input.setter(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 shadow-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all"
-                  />
-                </div>
-              ))}
+        <div className="relative z-20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-amber-900 tracking-tight">Reserve Your Car</h2>
+            <div className="w-1/3 bg-gray-200 h-2 md:h-3 rounded-full overflow-hidden shadow-inner">
+              <div 
+                className="bg-gradient-to-r from-amber-400 to-amber-500 h-full rounded-full transition-all duration-700 ease-out" 
+                style={{ width: `${progress}%` }}
+              ></div>
             </div>
           </div>
+          {error && <p className="text-red-500 bg-red-50 p-4 rounded-xl text-center mb-6 font-semibold border border-red-100 shadow-sm">{error}</p>}
 
-          {/* Form Actions */}
-          <div className="pt-4 flex flex-col items-center gap-6">
-            <button
-              type="button"
-              onClick={calculateFare}
-              className="group relative inline-flex items-center justify-center px-8 py-3 bg-white text-amber-700 font-bold tracking-wide rounded-full border-2 border-amber-300 overflow-hidden hover:bg-amber-50 focus:outline-none transition-all shadow-sm"
-            >
-              <span className="relative">Calculate Estimated Fare</span>
-            </button>
-
-            {fare !== null && (
-              <div className="animate-fade-in bg-amber-100/80 px-10 py-4 rounded-xl border border-amber-200 shadow-inner">
-                <p className="text-center text-3xl font-extrabold text-amber-800">
-                  <span className="text-lg text-amber-600 font-semibold mr-1">₹</span>{fare}
-                </p>
+          <form className="space-y-10" onSubmit={handleSubmit}>
+            {/* Location section - Premium Card */}
+            <div className="bg-white/90 p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 relative group transition-all duration-300 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)]">
+              <div className="flex items-center gap-4 mb-8 pb-4 border-b border-gray-100">
+                <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 shadow-sm group-hover:scale-110 transition-transform">
+                  <FiMapPin size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 tracking-tight">Trip Route</h3>
               </div>
-            )}
+              
+              <div className="relative space-y-8">
+                {/* Connecting Line */}
+                <div className="hidden md:block absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-amber-300 to-amber-500 -z-10"></div>
 
-            <button
-              type="submit"
-              className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black font-bold py-4 px-12 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-200"
-            >
-              Confirm Booking
-            </button>
-          </div>
-        </form>
+                {[
+                  {
+                    title: 'Pick-Up',
+                    state: selectedPickupState,
+                    setState: (val) => handleStateChange(val, 'Pickup'),
+                    city: selectedPickupCity,
+                    setCity: (val) => handleCityChange(val, 'Pickup'),
+                    pincode: selectedPickupPincode,
+                    icon: <div className="w-4 h-4 rounded-full bg-white border-4 border-amber-400 shadow-sm"></div>
+                  },
+                  {
+                    title: 'Drop-Off',
+                    state: selectedDropState,
+                    setState: (val) => handleStateChange(val, 'Drop'),
+                    city: selectedDropCity,
+                    setCity: (val) => handleCityChange(val, 'Drop'),
+                    pincode: selectedDropPincode,
+                    icon: <div className="w-4 h-4 rounded-full bg-amber-500 border-2 border-white shadow-sm shadow-amber-200"></div>
+                  }
+                ].map((loc, i) => (
+                  <div key={i} className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                    <div className="md:w-1/4 flex items-center gap-4">
+                      <div className="hidden md:flex w-12 justify-center z-10">{loc.icon}</div>
+                      <span className="text-sm font-bold text-gray-500 uppercase tracking-widest">{loc.title}</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full md:w-3/4">
+                      <select
+                        className="appearance-none p-4 rounded-xl w-full bg-gray-50 text-gray-800 font-medium border border-gray-200 focus:bg-white focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all shadow-sm focus:shadow-md cursor-pointer"
+                        value={loc.state}
+                        onChange={(e) => loc.setState(e.target.value)}
+                      >
+                        <option value="" className="text-gray-400">Select State</option>
+                        {states.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                      
+                      <select
+                        className="appearance-none p-4 rounded-xl w-full bg-gray-50 text-gray-800 font-medium border border-gray-200 focus:bg-white focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all shadow-sm focus:shadow-md cursor-pointer disabled:bg-gray-100 disabled:opacity-50"
+                        value={loc.city}
+                        onChange={(e) => loc.setCity(e.target.value)}
+                        disabled={!loc.state}
+                      >
+                        <option value="" className="text-gray-400">Select City</option>
+                        {cities[loc.state]?.map((city) => (
+                          <option key={city.name} value={city.name} disabled={excludedCities.includes(city.name)}>
+                            {city.name}
+                          </option>
+                        ))}
+                      </select>
+
+                      <input
+                        type="text"
+                        className="p-4 rounded-xl w-full bg-gray-100 text-gray-500 font-medium border border-transparent shadow-inner cursor-not-allowed"
+                        readOnly
+                        placeholder="Pincode"
+                        value={loc.pincode}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Schedule section - Premium Card */}
+            <div className="bg-white/90 p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all duration-300">
+              <div className="flex items-center gap-4 mb-8 pb-4 border-b border-gray-100">
+                <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 shadow-sm">
+                  <FiClock size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 tracking-tight">Schedule Timing</h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                {[
+                  { label: 'Pick-Up Date', type: 'date', value: pickupdate, setter: setPickupDate, icon: FiCalendar },
+                  { label: 'Pick-Up Time', type: 'time', value: pickuptime, setter: setPickupTime, icon: FiClock },
+                  { label: 'Drop-Off Date', type: 'date', value: dropdate, setter: setDropDate, icon: FiCalendar },
+                  { label: 'Drop-Off Time', type: 'time', value: droptime, setter: setDropTime, icon: FiClock }
+                ].map((input, i) => (
+                  <div key={i} className="group relative">
+                    <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">{input.label}</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400 group-focus-within:text-amber-500 transition-colors">
+                        <input.icon size={18} />
+                      </div>
+                      <input
+                        type={input.type}
+                        value={input.value}
+                        onChange={(e) => input.setter(e.target.value)}
+                        className="pl-11 pr-4 py-4 w-full rounded-xl bg-gray-50 text-gray-800 font-medium border border-gray-200 focus:bg-white focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all shadow-sm"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Actions & Fare */}
+            <div className="pt-6 flex flex-col items-center gap-8">
+              {!fare && (
+                <button
+                  type="button"
+                  onClick={calculateFare}
+                  className="group relative inline-flex items-center justify-center px-10 py-4 bg-white text-amber-700 font-bold tracking-wide rounded-2xl border border-gray-200 shadow-sm hover:border-amber-400 hover:shadow-md hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                >
+                  <FiTag className="mr-3 text-amber-500 group-hover:scale-110 transition-transform" size={20} />
+                  <span>Get Estimated Fare</span>
+                </button>
+              )}
+
+              {fare !== null && (
+                <div className="w-full max-w-md mx-auto relative animate-fade-in group">
+                  <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-400 opacity-30 group-hover:opacity-50 blur-lg transition duration-500"></div>
+                  <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-[2rem] border border-white shadow-xl flex flex-col items-center justify-center overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl group-hover:bg-amber-400/20 transition-all transform translate-x-10 -translate-y-10"></div>
+                    <span className="text-xs font-black text-amber-800/60 uppercase tracking-[0.2em] mb-3">Total Estimated Fare</span>
+                    <div className="flex items-start">
+                      <span className="text-3xl text-amber-500 font-bold mt-2 mr-2">₹</span>
+                      <span className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-gray-800 to-gray-900 tracking-tighter">{fare}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="w-full sm:w-2/3 md:w-1/2 group relative inline-flex items-center justify-center overflow-hidden rounded-2xl p-4 px-12 font-bold text-white shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl active:scale-95 bg-gradient-to-br from-amber-500 to-orange-600"
+              >
+                <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)]">
+                  <div className="relative h-full w-8 bg-white/30"></div>
+                </div>
+                <span className="relative z-10 text-xl tracking-wide flex items-center gap-3">
+                  Confirm Booking <FiNavigation size={22} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
