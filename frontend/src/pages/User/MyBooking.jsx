@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './Unav';
 import API_BASE_URL from '../../constants';
 import Modal from '../../components/Modal';
-import { MoreVertical, Trash2 } from 'lucide-react';
+import { FiMoreVertical, FiTrash2 } from 'react-icons/fi';
 
 function Mybookings() {
   const [cars, setCars] = useState([]);
@@ -148,7 +148,7 @@ function Mybookings() {
                     onClick={() => setActiveMenu(activeMenu === car._id ? null : car._id)}
                     className="p-1 rounded-full hover:bg-gray-100 transition-colors"
                   >
-                    <MoreVertical size={20} className="text-gray-500" />
+                    <FiMoreVertical size={20} className="text-gray-500" />
                   </button>
                   {activeMenu === car._id && (
                     <div 
@@ -159,7 +159,7 @@ function Mybookings() {
                         onClick={() => handleRemoveHistory(car._id)}
                         className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 font-medium flex items-center transition-colors rounded-lg"
                       >
-                        <Trash2 size={16} className="mr-2" />
+                        <FiTrash2 size={16} className="mr-2" />
                         Remove from History
                       </button>
                     </div>
