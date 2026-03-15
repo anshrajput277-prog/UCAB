@@ -199,104 +199,118 @@ const BookCab = () => {
         <h2 className="text-4xl font-bold text-amber-700 text-center mb-8">Book a Ride</h2>
         {error && <p className="text-red-600 text-center mb-4">{error}</p>}
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          {[
-            {
-              title: 'Pickup Location',
-              state: selectedPickupState,
-              setState: (val) => handleStateChange(val, 'Pickup'),
-              city: selectedPickupCity,
-              setCity: (val) => handleCityChange(val, 'Pickup'),
-              pincode: selectedPickupPincode
-            },
-            {
-              title: 'Drop Location',
-              state: selectedDropState,
-              setState: (val) => handleStateChange(val, 'Drop'),
-              city: selectedDropCity,
-              setCity: (val) => handleCityChange(val, 'Drop'),
-              pincode: selectedDropPincode
-            }
-          ].map((loc, i) => (
-            <div key={i}>
-              <h3 className="text-xl font-semibold text-amber-700 mb-2">{loc.title}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <select
-                  className="p-2 border rounded-md w-full bg-white text-gray-700"
-                  value={loc.state}
-                  onChange={(e) => loc.setState(e.target.value)}
-                >
-                  <option value="">Select State</option>
-                  {states.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-                <select
-                  className="p-2 border rounded-md w-full bg-white text-gray-700"
-                  value={loc.city}
-                  onChange={(e) => loc.setCity(e.target.value)}
-                >
-                  <option value="">Select City</option>
-                  {cities[loc.state]?.map((city) => (
-                    <option
-                      key={city.name}
-                      value={city.name}
-                      disabled={excludedCities.includes(city.name)}
-                    >
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  className="p-2 border rounded-md w-full bg-amber-100 text-gray-600"
-                  readOnly
-                  value={loc.pincode}
-                />
+        <form className="space-y-8" onSubmit={handleSubmit}>
+          {/* Location Details Route Grid */}
+          <div className="bg-white/60 p-6 rounded-xl border border-amber-100 shadow-sm space-y-6">
+            <h3 className="text-xl font-semibold text-amber-800 border-b border-amber-200 pb-2">Trip Route</h3>
+            
+            {[
+              {
+                title: 'Pickup Location',
+                state: selectedPickupState,
+                setState: (val) => handleStateChange(val, 'Pickup'),
+                city: selectedPickupCity,
+                setCity: (val) => handleCityChange(val, 'Pickup'),
+                pincode: selectedPickupPincode
+              },
+              {
+                title: 'Drop Location',
+                state: selectedDropState,
+                setState: (val) => handleStateChange(val, 'Drop'),
+                city: selectedDropCity,
+                setCity: (val) => handleCityChange(val, 'Drop'),
+                pincode: selectedDropPincode
+              }
+            ].map((loc, i) => (
+              <div key={i} className="flex flex-col md:flex-row md:items-center gap-4">
+                <div className="md:w-1/4">
+                  <span className="text-sm font-medium text-amber-900 uppercase tracking-wide">{loc.title}</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:w-3/4">
+                  <select
+                    className="p-3 border border-gray-300 rounded-lg w-full bg-white text-gray-700 shadow-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all"
+                    value={loc.state}
+                    onChange={(e) => loc.setState(e.target.value)}
+                  >
+                    <option value="">Select State</option>
+                    {states.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                  <select
+                    className="p-3 border border-gray-300 rounded-lg w-full bg-white text-gray-700 shadow-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all"
+                    value={loc.city}
+                    onChange={(e) => loc.setCity(e.target.value)}
+                  >
+                    <option value="">Select City</option>
+                    {cities[loc.state]?.map((city) => (
+                      <option
+                        key={city.name}
+                        value={city.name}
+                        disabled={excludedCities.includes(city.name)}
+                      >
+                        {city.name}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    className="p-3 border border-gray-200 rounded-lg w-full bg-gray-50 text-gray-500 shadow-inner"
+                    readOnly
+                    placeholder="Pincode"
+                    value={loc.pincode}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
-          {[
-            { label: 'Pickup Date', type: 'date', value: pickupdate, setter: setPickupDate },
-            { label: 'Pickup Time', type: 'time', value: pickuptime, setter: setPickupTime },
-            { label: 'Drop Date', type: 'date', value: dropdate, setter: setDropDate },
-            { label: 'Drop Time', type: 'time', value: droptime, setter: setDropTime }
-          ].map((input, i) => (
-            <div key={i}>
-              <label className="text-amber-700 font-medium block mb-1">{input.label}</label>
-              <input
-                type={input.type}
-                value={input.value}
-                onChange={(e) => input.setter(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md bg-white text-gray-700"
-              />
+          {/* Date & Time Grid */}
+          <div className="bg-white/60 p-6 rounded-xl border border-amber-100 shadow-sm">
+            <h3 className="text-xl font-semibold text-amber-800 border-b border-amber-200 pb-2 mb-6">Schedule</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+              {[
+                { label: 'Pickup Date', type: 'date', value: pickupdate, setter: setPickupDate },
+                { label: 'Pickup Time', type: 'time', value: pickuptime, setter: setPickupTime },
+                { label: 'Drop Date', type: 'date', value: dropdate, setter: setDropDate },
+                { label: 'Drop Time', type: 'time', value: droptime, setter: setDropTime }
+              ].map((input, i) => (
+                <div key={i}>
+                  <label className="block text-sm font-semibold text-amber-900 mb-2 uppercase tracking-wide">{input.label}</label>
+                  <input
+                    type={input.type}
+                    value={input.value}
+                    onChange={(e) => input.setter(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 shadow-sm focus:ring-2 focus:ring-amber-400 focus:border-amber-400 focus:outline-none transition-all"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
 
-          <div className="text-center">
+          {/* Form Actions */}
+          <div className="pt-4 flex flex-col items-center gap-6">
             <button
               type="button"
               onClick={calculateFare}
-              className="bg-amber-300 hover:bg-amber-400 text-black font-semibold py-2 px-6 rounded-md shadow"
+              className="group relative inline-flex items-center justify-center px-8 py-3 bg-white text-amber-700 font-bold tracking-wide rounded-full border-2 border-amber-300 overflow-hidden hover:bg-amber-50 focus:outline-none transition-all shadow-sm"
             >
-              Calculate Fare
+              <span className="relative">Calculate Estimated Fare</span>
             </button>
-          </div>
 
-          {fare !== null && (
-            <p className="text-center text-2xl font-semibold text-amber-700">
-              Fare: ₹{fare}
-            </p>
-          )}
-          <div className="text-center">
+            {fare !== null && (
+              <div className="animate-fade-in bg-amber-100/80 px-10 py-4 rounded-xl border border-amber-200 shadow-inner">
+                <p className="text-center text-3xl font-extrabold text-amber-800">
+                  <span className="text-lg text-amber-600 font-semibold mr-1">₹</span>{fare}
+                </p>
+              </div>
+            )}
+
             <button
               type="submit"
-              className="bg-amber-400 hover:bg-amber-500 text-black font-semibold py-3 px-10 rounded-md shadow"
+              className="w-full sm:w-auto min-w-[200px] bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-black font-bold py-4 px-12 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-200"
             >
-              Book Ride
+              Confirm Booking
             </button>
           </div>
         </form>
