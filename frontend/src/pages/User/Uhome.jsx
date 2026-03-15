@@ -28,14 +28,19 @@ const Uhome = () => {
                         Cab Booking is the ultimate solution for all your transportation needs. Whether you're looking for a convenient ride to work, a hassle-free airport transfer, or a safe and reliable ride around town, our app has you covered.
                     </p>
 
-                    {/* Banner Illustration inside Glass Card */}
-                    <div className="glass-card bg-white/70 max-w-5xl mx-auto p-4 lg:p-6 mb-12 transform transition-all hover:shadow-2xl hover:-translate-y-2 duration-500 rounded-[2rem] border-white/50 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                        <div className="rounded-2xl overflow-hidden relative group">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 rounded-2xl pointer-events-none"></div>
+                    {/* Premium Floating Illustration */}
+                    <div className="relative max-w-5xl mx-auto mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                        {/* Elegant Ambient Glow Layers */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gradient-to-r from-amber-300 to-yellow-200 rounded-[3rem] blur-[80px] opacity-40 mix-blend-multiply"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-amber-100 rounded-full blur-[60px] opacity-60"></div>
+                        
+                        {/* The Image Container */}
+                        <div className="relative group perspective-1000">
+                            <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-3xl pointer-events-none z-20"></div>
                             <img
                                 src={rideBanner}
                                 alt="Enjoy Your Ride Steps"
-                                className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                                className="relative z-10 w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(217,119,6,0.15)] transform transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:-translate-y-4"
                             />
                         </div>
                     </div>
