@@ -10,7 +10,7 @@ const Uhome = () => {
             <Unav />
             
             {/* Hero Section */}
-            <section className="relative pt-24 pb-16 lg:pt-36 lg:pb-24 border-b border-gray-100 flex-1 flex flex-col justify-center">
+            <section id="home" className="relative pt-24 pb-16 lg:pt-36 lg:pb-24 border-b border-gray-100 flex-1 flex flex-col justify-center">
                 {/* Background Shapes */}
                 <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 z-0 pointer-events-none">
                     <div className="w-[500px] h-[500px] rounded-full bg-gradient-to-br from-accent/20 to-brand-300/20 blur-3xl opacity-60 animate-pulse-slow"></div>
@@ -60,8 +60,8 @@ const Uhome = () => {
                 </div>
             </section>
 
-            {/* Feature Split Section */}
-            <section className="py-20 bg-white relative z-10">
+            {/* Feature Split Section / About */}
+            <section id="about" className="py-20 bg-white relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                         <div className="mb-10 lg:mb-0 relative group">
@@ -92,8 +92,8 @@ const Uhome = () => {
                 </div>
             </section>
 
-            {/* Why Choose Us Section */}
-            <section className="py-20 bg-gray-50 border-t border-brand-50 relative z-10">
+            {/* Why Choose Us Section / Features */}
+            <section id="features" className="py-20 bg-gray-50 border-t border-brand-50 relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                          <span className="text-brand-600 font-bold tracking-wide uppercase text-sm mb-3 block">Features</span>
