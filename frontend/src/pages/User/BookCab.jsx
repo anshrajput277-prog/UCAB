@@ -189,7 +189,7 @@ const BookCab = () => {
         onConfirm={modal.onConfirm}
         confirmText={modal.confirmText}
       />
-      <div className="max-w-4xl mx-auto mt-12 mb-20 p-8 md:p-12 bg-white/70 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] border border-white relative z-10 overflow-hidden">
+      <div className="max-w-4xl mx-auto mt-28 mb-20 p-8 md:p-12 bg-white/70 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] border border-white relative z-10 overflow-hidden">
         {/* Decorative Top Glow */}
         <div className="absolute -top-32 -left-32 w-64 h-64 bg-amber-400 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-pulse"></div>
         <div className="absolute top-1/2 -right-32 w-80 h-80 bg-orange-400 rounded-full mix-blend-multiply filter blur-[120px] opacity-30"></div>

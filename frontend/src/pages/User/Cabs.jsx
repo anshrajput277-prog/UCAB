@@ -42,7 +42,7 @@ function Cabs() {
   return (
     <div className="bg-amber-100 min-h-screen font-sans">
       <Navbar />
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto p-6 pt-28">
         <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Available Cabs</h1>
         <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
           <input
