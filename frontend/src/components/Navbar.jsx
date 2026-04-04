@@ -18,12 +18,16 @@ const NavBar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-[999] transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-200/50 py-3" : "bg-transparent py-5"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="text-2xl font-extrabold text-gray-900 tracking-tight gap-2 flex items-center no-underline hover:opacity-80 transition-opacity">
-              <span className="bg-accent text-gray-900 p-2 rounded-xl">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-              </span>
-              Ucab
+          <div className="flex-shrink-0 flex items-center group">
+            <Link to="/" className="text-2xl font-black tracking-tighter gap-3 flex items-center no-underline">
+              <div className="relative flex items-center justify-center p-2 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-500 shadow-lg shadow-amber-500/30 overflow-hidden transform group-hover:-translate-y-0.5 transition-all duration-300">
+                <div className="absolute top-0 right-0 w-4 h-4 bg-white/40 rounded-full blur-md transform translate-x-1 -translate-y-1"></div>
+                <svg className="w-6 h-6 text-gray-900 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">Ucab</span>
             </Link>
           </div>
           
