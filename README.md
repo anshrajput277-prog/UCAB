@@ -151,7 +151,7 @@ UCAB Mern stack/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/ucab-mern.git
+git clone https://github.com/anshrajput277-prog/ucab-mern.git
 cd ucab-mern
 ```
 
@@ -255,7 +255,7 @@ FRONTEND_URL=http://localhost:5173
 ## 👨‍💻 Author
 
 **Ansh Rajput**  
-📧 Connect on [GitHub](https://github.com/your-username)
+📧 Connect on [GitHub](https://github.com/anshrajput277-prog)
 
 ---
 
