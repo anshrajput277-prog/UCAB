@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const dns = require('dns');
+
 dotenv.config();
+
+// Set public DNS servers to resolve MongoDB SRV records on environments like Render
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const connectDB = async () => {
   try {
@@ -8,7 +13,7 @@ const connectDB = async () => {
     console.log("MongoDB Connected");
   } catch (error) {
     console.error("MongoDB connection error:", error);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
